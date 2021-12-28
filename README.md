@@ -19,10 +19,10 @@ In `settings.py`:
  * Optionally (but recommended), add `django_auth_tkt.SsoMiddleware` to the `MIDDLEWARE` list. It logs out the current user from Django when teh SSO ticket expires and relies on `django.contrib.auth.middleware.AuthenticationMiddleware`, so it should be placed below it.
  * Also optionally, define the lifetime of tickets, e.g. `SSO_TICKET_LIFETIME = timedelta(days=1)`. The default value is one hour.
  * The default cookie name of the ticket is `auth_tkt`, it can be changed with the `SSO_TICKET_NAME` setting.
- * The default hash algorithm is [MD5](). It can be adjusted with `SSO_HASH_ALGORITHM`, 
-   allowed values are `'md5'`, `'sha256'` and `'sha512'`. 
+ * The default hash algorithm is SHA256. It can be adjusted with `SSO_HASH_ALGORITHM`, 
+   allowed values are `'md5'` [(insecure)](https://security.stackexchange.com/a/19908), `'sha256'` and `'sha512'`.
  
-Decorate the authentication views in the `urlpatterns` of the main `urls.py`, for example:
+Decorate the [authentication views](https://docs.djangoproject.com/en/4.0/topics/auth/default/#module-django.contrib.auth.views) in the main `urls.py`, for example:
 
     from django.contrib import admin
     from django.contrib.auth import views as auth_views
@@ -41,7 +41,3 @@ Decorate the authentication views in the `urlpatterns` of the main `urls.py`, fo
     ]
 
 For Apache configuration examples, see [mod_auth_tkt(3)](http://manpages.ubuntu.com/manpages/focal/en/man3/mod_auth_tkt.3.html#examples).
-
-## Caveats
-
-* The underlying [auth_tkt](https://github.com/yola/auth_tkt) module only supports insecure [MD5 hashing](https://security.stackexchange.com/a/19908). 

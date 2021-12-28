@@ -10,7 +10,7 @@ from functools import wraps
 
 __all__ = ('auth', 'unauth', 'SsoMiddleware')
 
-__version__ = '0.1.0'
+__version__ = '0.2.0'
 
 # See: https://github.com/yola/auth_tkt/
 TICKET_NAME = getattr(settings, 'SSO_TICKET_NAME', 'auth_tkt')
@@ -19,8 +19,8 @@ TICKET_NAME = getattr(settings, 'SSO_TICKET_NAME', 'auth_tkt')
 # make certain that the auth cookie expires
 TICKET_LIFETIME = getattr(settings, 'SSO_TICKET_LIFETIME', timedelta(hours=1))
 
-# Hash algorithm, can be one of 'md5' (default), 'sha256' or 'sha512'
-HASH_ALGORITHM = getattr(settings, 'SSO_HASH_ALGORITHM', 'md5')
+# Hash algorithm, can be one of 'md5', 'sha256' (default) or 'sha512'
+HASH_ALGORITHM = getattr(settings, 'SSO_HASH_ALGORITHM', 'sha256')
 
 
 # HTTP redirect status codes
